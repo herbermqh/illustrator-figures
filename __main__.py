@@ -9,7 +9,8 @@ import platform
 import pyperclip
 import subprocess
 
-source = str(Path(__file__).parent / 'plantilla.pdf')
+source_plantilla_teoria = str(Path(__file__).parent / 'plantilla_teoria.pdf')
+source_plantilla_ejercicios = str(Path(__file__).parent / 'plantilla_ejercicios.pdf')
 
 def illustrator(path): 
     subprocess.Popen(['Illustrator', str(path)])
@@ -24,6 +25,7 @@ def cli():
 @click.argument('directorio')
 def crear_editar(nombre,directorio):
     nombre = nombre.strip()
+    directorio = directorio.strip()
     file_name = nombre+'.pdf'
     # figures = Path(directorio).absolute()
     name_archive_figures = "IMAGES-"+directorio.split("\\")[-1].split(".")[0]
@@ -39,6 +41,14 @@ def crear_editar(nombre,directorio):
             dir_h = dir_h + "\\" + item
 
     directory_figure = str(dir_h+'\\'+name_archive_figures+'\\'+file_name)
+
+    #decide si es teoria o ejercicio
+    for n in name_archive_figures.split("-"):
+        if n == "TEORIA":
+            source = source_plantilla_teoria
+            break
+        else:
+            source = source_plantilla_ejercicios
 
     # If a file with this name already exists, append a '2'.
     if os.path.exists(directory_figure):
