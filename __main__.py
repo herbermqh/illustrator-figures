@@ -9,16 +9,18 @@ import platform
 import pyperclip
 import subprocess
 
+
 source_plantilla_teoria = str(Path(__file__).parent / 'plantilla_teoria.pdf')
 source_plantilla_ejercicios = str(Path(__file__).parent / 'plantilla_ejercicios.pdf')
 
 def illustrator(path): 
     subprocess.Popen(['Illustrator', str(path)])
 
+
+# syntax: python -m illustrator-figures crear-editar "nombre_fig" directorio_figure
 @click.group()
 def cli():
    pass 
-
 
 @cli.command(help='crear y editar figura')
 @click.argument('nombre')
@@ -56,8 +58,6 @@ def crear_editar(nombre,directorio):
     else:
         copy(str(source),str(directory_figure))
         illustrator(directory_figure)
-
-   
 
 
 @cli.command(help='modificar una figura')
