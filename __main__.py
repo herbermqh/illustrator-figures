@@ -25,9 +25,9 @@ def cli():
 @click.argument('nombre')
 @click.argument('directorio')
 def crear_editar(nombre,directorio):
-    nombre = nombre.strip()
+    nombre_fig=re.search(r'\{(.*?)\}', nombre).group(1)
     directorio = directorio.strip()
-    file_name = nombre+'.pdf'
+    file_name = nombre_fig+'.pdf'
     # figures = Path(directorio).absolute()
     name_archive_figures = "IMAGES-"+directorio.split("\\")[-1].split(".")[0]
     directory_archive_tex = directorio.split('\\')
